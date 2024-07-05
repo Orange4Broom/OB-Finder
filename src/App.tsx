@@ -1,26 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { useDirectoryFiles } from "./hooks/useDirectoryFiles";
 
-function App() {
+const App: React.FC = () => {
+  const { files, error, setPath } = useDirectoryFiles("");
+
+  console.log(files);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <button onClick={() => setPath("Documents/work")}>
+        Load Files from ~/Documents
+      </button>
+      <button onClick={() => setPath("Desktop")}>
+        Load Files from ~/Desktop
+      </button>
+      {error && <div style={{ color: "red" }}>{error}</div>}
+      <ul>
+        {files.map((file, index) => (
+          <li key={index}>
+            {file.isDirectory ? "📁" : "📄"} {file.name}
+          </li>
+        ))}
+      </ul>
     </div>
   );
-}
+};
 
 export default App;
