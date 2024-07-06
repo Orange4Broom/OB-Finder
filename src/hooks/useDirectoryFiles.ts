@@ -3,6 +3,9 @@ import { useState, useEffect, useRef } from "react";
 export interface FileEntry {
   name: string;
   isDirectory: boolean;
+  size: number;
+  createdAt: string;
+  modifiedAt: string;
 }
 
 export const useDirectoryFiles = (initialPath: string) => {
@@ -17,14 +20,13 @@ export const useDirectoryFiles = (initialPath: string) => {
       try {
         let fetchedFiles = await window.electron.getFiles(path);
         if (cancelRequest.current) return;
-        setFiles(fetchedFiles);
+        setFiles(fetchedFiles as FileEntry[]);
       } catch (err) {
         if (cancelRequest.current) return;
 
         const message =
           err instanceof Error ? err.message : "An unknown error occurred";
         setError(`Failed to load files from ${path}: ${message}`);
-        console.error(`Error loading files for ${path}: ${message}`); // Debugging log
       }
     };
 
@@ -35,5 +37,5 @@ export const useDirectoryFiles = (initialPath: string) => {
     };
   }, [path]);
 
-  return { files, error, setPath };
+  return { files, error, setPath, path };
 };

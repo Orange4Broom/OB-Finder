@@ -2,8 +2,9 @@ import { app, BrowserWindow, ipcMain } from "electron";
 import * as path from "path";
 import * as fs from "fs";
 import * as os from "os";
+import { useFormatDate } from "./src/hooks/useFormatDate";
+import { useFormatSize } from "./src/hooks/useFormatSize";
 
-// Použití electron-reload pro automatické obnovení aplikace při změně souborů
 try {
   require("electron-reload")(__dirname, {
     electron: require(`${__dirname}/node_modules/electron`),
@@ -49,14 +50,21 @@ ipcMain.handle("get-files", async (_, dirPath) => {
     const files = await fs.promises.readdir(targetPath, {
       withFileTypes: true,
     });
-    const fileEntries = files.map((entry) => ({
-      name: entry.name,
-      isDirectory: entry.isDirectory(),
-    }));
-    console.log(`Files in ~/${dirPath}:`, fileEntries);
+    const fileEntries = await Promise.all(
+      files.map(async (entry) => {
+        const fullPath = path.join(targetPath, entry.name);
+        const stats = await fs.promises.stat(fullPath);
+        return {
+          name: entry.name,
+          isDirectory: entry.isDirectory(),
+          size: useFormatSize(stats.size),
+          createdAt: useFormatDate(stats.birthtime, false),
+          modifiedAt: useFormatDate(stats.mtime, false),
+        };
+      })
+    );
     return fileEntries;
   } catch (error) {
-    console.error("Error reading directory:", error);
     throw new Error(`Failed to read directory at ${targetPath}`);
   }
 });

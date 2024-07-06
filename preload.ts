@@ -12,12 +12,12 @@ const electronAPI: ElectronAPI = {
 contextBridge.exposeInMainWorld("electron", {
   getFiles: async (dirPath: any) => {
     try {
-      console.log("Requesting files for path:", dirPath); // Debug log
+      console.log("Requesting files for path:", dirPath);
       const files = await ipcRenderer.invoke("get-files", dirPath);
-      console.log("Received files:", files); // Debug log
+      console.log("Received files:", files);
       return files;
     } catch (error) {
-      console.error("Error in getFiles:", error); // Debug log
+      console.error("Error in getFiles:", error);
       throw error;
     }
   },

@@ -4,7 +4,7 @@ export interface FileEntry {
 }
 
 export interface ElectronAPI {
-  getFiles: (path: string) => Promise<FileEntry[]>; // Assuming FileEntry is correctly defined elsewhere
+  getFiles: (path: string) => Promise<FileEntry[]>;
 }
 
 declare global {

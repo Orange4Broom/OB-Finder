@@ -4,7 +4,7 @@ My own version of File Explorer (Windows), Finder (macOS) in Electron with TypeS
 
 ## Spent hours on this project ⏳
 
-- 26 hours
+- 28 hours
 
 ### Start the project 🚀
 
