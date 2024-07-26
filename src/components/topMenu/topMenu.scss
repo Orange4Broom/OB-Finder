@@ -1,0 +1,59 @@
+.menu {
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  gap: 40px;
+  width: 100vw;
+  padding-left: 16px;
+  background-color: rgb(77, 77, 77);
+  border-bottom: 1px solid grey;
+
+  &__back {
+    font-size: 18px;
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.636);
+    height: 30px;
+    width: 30px;
+    border-radius: 8px;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      cursor: pointer;
+      color: rgb(255, 255, 255);
+    }
+  }
+
+  &__path {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 400;
+    border: 0.2px solid grey;
+    border-radius: 4px;
+    padding: 4px;
+    padding-left: 10px;
+    width: 600px;
+  }
+
+  &__copy {
+    font-size: 16px;
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.636);
+    height: 30px;
+    width: 30px;
+    border-radius: 8px;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      cursor: pointer;
+      color: rgb(255, 255, 255);
+    }
+  }
+}
